@@ -1,0 +1,22 @@
+﻿using Core.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Core.Entities
+{
+    /// <summary>
+    /// Ürünlerin kategorileri
+    /// </summary>
+    public class Category : IEntity
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; }    //<-- CategoryName
+        public string Description { get; set; }
+        public bool IsDeleted { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public DateTime? UpdatedDate { get; set; }
+    }
+}
