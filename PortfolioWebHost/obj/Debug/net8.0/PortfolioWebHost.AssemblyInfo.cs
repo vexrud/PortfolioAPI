@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PortfolioWebHost")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+71ce30106840eaf561ce58d004e8d93eb3df2df3")]
 [assembly: System.Reflection.AssemblyProductAttribute("PortfolioWebHost")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PortfolioWebHost")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

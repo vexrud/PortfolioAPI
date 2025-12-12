@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Core.Infrastructure.EntityFramework
 {
-    public class EfEntityRepositoryBase<TEntity, TContext> : IEntityRepository<TEntity>
+    public class EfEntityRepository<TEntity, TContext> : IEntityRepository<TEntity>
         where TEntity : class, IEntity, new()   //Parametre olarak verilebilecek generic yapılı Entity'nin koşulları
         where TContext : DbContext, new()   //Parametre olarak verilebilecek generic yapılı Context'in koşulları
     {
@@ -45,11 +45,14 @@ namespace Core.Infrastructure.EntityFramework
         {
             using (TContext context = new TContext())
             {
-                return filter == null
-                    ? context.Set<TEntity>().ToList()
-                    : context.Set<TEntity>().Where(filter).ToList();
-                //Ternary operatörü sayesinde filter içerisindeki değer eğer null ise Product tablosuna eriş ve tüm datayı getir.
-                //Eğer null değil bir filtre var ise .Where ile bu filtreyi uygulayarak getir.
+                IQueryable<TEntity> query = context.Set<TEntity>();
+
+                if (filter != null)
+                {
+                    query = query.Where(filter);
+                }
+
+                return query.Take(100).ToList();    //.Take(100) 100 kayıt sınırı koydum.
             }
         }
 
