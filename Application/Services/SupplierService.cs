@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Core.Entities;
+using Infrastructure.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,29 +11,60 @@ namespace Application.Services
 {
     public class SupplierService : ISupplierService
     {
-        public void AddRecord(Category entity)
+        private readonly ISupplierDal _supplierDal;
+
+        public SupplierService(ISupplierDal supplierDal)
         {
-            throw new NotImplementedException();
+            _supplierDal = supplierDal;
+        }
+
+        public void AddRecord(Supplier entity)
+        {
+            _supplierDal.Add(entity);
         }
 
         public void DeleteRecord(Guid id)
         {
-            throw new NotImplementedException();
+            var record = GetRecordById(id);
+
+            if(record == null)
+            {
+                throw new Exception("Kayıt bulunamadı.");
+            }
+
+            record.IsDeleted = true;
+            record.UpdatedDate = DateTime.Now;
+
+            _supplierDal.Update(record);
         }
 
-        public List<Category> GetAllRecord()
+        public List<Supplier> GetAllRecord()
         {
-            throw new NotImplementedException();
+            return _supplierDal.GetAll();
         }
 
-        public Category GetRecordById(Guid id)
+        public Supplier GetRecordById(Guid id)
         {
-            throw new NotImplementedException();
+            return _supplierDal.Get(s => s.Id == id);
         }
 
-        public void UpdateRecord(Category entity)
+        public void UpdateRecord(Supplier entity)
         {
-            throw new NotImplementedException();
+            entity.UpdatedDate = DateTime.Now;
+            _supplierDal.Update(entity);
         }
+
+        /** TODO: Bu kısım Authorization oluşturulduktan sonra sadece sistem adminlerinin erişebileceği şekilde yapılacak.*/
+        //public void HardDelete(Guid id)
+        //{
+        //    var record = _categoryDal.Get(c => c.Id == id);
+
+        //    if (record == null)
+        //    {
+        //        throw new Exception("Kayıt bulunamadı.");
+        //    }
+
+        //    _categoryDal.Delete(record);
+        //}
     }
 }

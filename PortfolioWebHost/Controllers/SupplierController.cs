@@ -7,14 +7,15 @@ namespace PortfolioWebHost.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoryController : ControllerBase
+    public class SupplierController : ControllerBase
     {
-        private readonly ICategoryService _service;
-        public CategoryController(
-            ICategoryService service)
+        private readonly ISupplierService _service;
+
+        public SupplierController(ISupplierService service)
         {
             _service = service;
         }
+
 
         [HttpGet]
         public IActionResult GetAll()
@@ -42,11 +43,10 @@ namespace PortfolioWebHost.Controllers
 
                 return BadRequest($"Bir sorun oluştu. Hata mesajı: {err.Message}");
             }
-
         }
 
         [HttpPost]
-        public IActionResult Insert(Category entity)
+        public IActionResult Insert(Supplier entity)
         {
             try
             {
@@ -57,11 +57,11 @@ namespace PortfolioWebHost.Controllers
             {
 
                 return BadRequest($"Bir sorun oluştu. Hata mesajı: {err.Message}");
-            }            
+            }
         }
 
         [HttpPut]
-        public IActionResult Update(Category entity)
+        public IActionResult Update(Supplier entity)
         {
             try
             {
@@ -85,8 +85,9 @@ namespace PortfolioWebHost.Controllers
             }
             catch (Exception err)
             {
+
                 return BadRequest($"Bir sorun oluştu. Hata mesajı: {err.Message}");
-            }           
+            }
         }
     }
 }

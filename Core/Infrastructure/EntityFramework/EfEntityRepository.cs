@@ -1,4 +1,5 @@
 ﻿using Core.Interfaces;
+using Core.Utilities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -33,13 +34,20 @@ namespace Core.Infrastructure.EntityFramework
             }
         }
 
-        public TEntity Get(Expression<Func<TEntity, bool>> filter)
+        public TEntity? Get(Expression<Func<TEntity, bool>>? filter)
         {
             using (TContext context = new TContext())
             {
-                return context.Set<TEntity>().SingleOrDefault(filter);
+                Expression<Func<TEntity, bool>> notDeleted = e => !e.IsDeleted;
+
+                var finalFilter = filter == null
+                    ? notDeleted
+                    : filter.And(notDeleted);
+
+                return context.Set<TEntity>().SingleOrDefault(finalFilter);
             }
         }
+
 
         public List<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null)
         {
@@ -52,7 +60,9 @@ namespace Core.Infrastructure.EntityFramework
                     query = query.Where(filter);
                 }
 
-                return query.Take(100).ToList();    //.Take(100) 100 kayıt sınırı koydum.
+                return query.Where(e => e.IsDeleted == false)   //Aktif kayıtları getirmesi için ekledim.
+                    .Take(100)   //.Take(100) 100 kayıt sınırı koydum.
+                    .ToList();   
             }
         }
 

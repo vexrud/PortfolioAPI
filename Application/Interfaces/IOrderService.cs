@@ -9,11 +9,11 @@ namespace Application.Interfaces
 {
     public interface IOrderService
     {
-        List<Category> GetAllRecord();
-        Category GetRecordById(Guid id);
+        List<Order> GetAllRecord();
+        Order GetRecordById(Guid id);
 
-        void AddRecord(Category entity);
-        void UpdateRecord(Category entity);
+        void AddRecord(Order entity);
+        void UpdateRecord(Order entity);
         void DeleteRecord(Guid id);
     }
 }

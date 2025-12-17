@@ -9,11 +9,11 @@ namespace Application.Interfaces
 {
     public interface ISupplierService
     {
-        List<Category> GetAllRecord();
-        Category GetRecordById(Guid id);
+        List<Supplier> GetAllRecord();
+        Supplier GetRecordById(Guid id);
 
-        void AddRecord(Category entity);
-        void UpdateRecord(Category entity);
+        void AddRecord(Supplier entity);
+        void UpdateRecord(Supplier entity);
         void DeleteRecord(Guid id);
     }
 }

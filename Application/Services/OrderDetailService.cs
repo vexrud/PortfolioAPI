@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Core.Entities;
+using Infrastructure.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,29 +11,60 @@ namespace Application.Services
 {
     public class OrderDetailService : IOrderDetailService
     {
-        public void AddRecord(Category entity)
+        private readonly IOrderDetailDal _orderDetailDal;
+
+        public OrderDetailService(IOrderDetailDal orderDetailDal)
         {
-            throw new NotImplementedException();
+            _orderDetailDal = orderDetailDal;
+        }
+
+        public void AddRecord(OrderDetail entity)
+        {
+            _orderDetailDal.Add(entity);
         }
 
         public void DeleteRecord(Guid id)
         {
-            throw new NotImplementedException();
+            var record = GetRecordById(id);
+
+            if(record == null)
+            {
+                throw new Exception("Kayıt bulunamadı.");
+            }
+
+            record.IsDeleted = true;
+            record.UpdatedDate = DateTime.Now;
+
+            _orderDetailDal.Update(record);
         }
 
-        public List<Category> GetAllRecord()
+        public List<OrderDetail> GetAllRecord()
         {
-            throw new NotImplementedException();
+            return _orderDetailDal.GetAll();
         }
 
-        public Category GetRecordById(Guid id)
+        public OrderDetail GetRecordById(Guid id)
         {
-            throw new NotImplementedException();
+            return _orderDetailDal.Get(o => o.Id == id);
         }
 
-        public void UpdateRecord(Category entity)
+        public void UpdateRecord(OrderDetail entity)
         {
-            throw new NotImplementedException();
+            entity.UpdatedDate = DateTime.Now;
+            _orderDetailDal.Update(entity);
         }
+
+        /** TODO: Bu kısım Authorization oluşturulduktan sonra sadece sistem adminlerinin erişebileceği şekilde yapılacak.*/
+        //public void HardDelete(Guid id)
+        //{
+        //    var record = _categoryDal.Get(c => c.Id == id);
+
+        //    if (record == null)
+        //    {
+        //        throw new Exception("Kayıt bulunamadı.");
+        //    }
+
+        //    _categoryDal.Delete(record);
+        //}
     }
 }

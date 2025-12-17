@@ -17,7 +17,9 @@ namespace Infrastructure.Concrete
         //Step 1: Veritabanımın yolunu belirtmem gerekiyor. (OnConfiguring : Projenin hangi veritabanı ile ilişkili olduğunu belirtiyoruz.)
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server = VEXRUD\SQLEXPRESS; Integrated Security=True; Persist Security Info=False; Pooling=False; MultipleActiveResultSets=False; Encrypt=True; TrustServerCertificate=True;"); //ConnectionString kendi bilgisayarım
+            //ConnectionString kendi bilgisayarım
+            optionsBuilder.UseSqlServer(@"Data Source=VEXRUD\SQLEXPRESS; Initial Catalog=CustomNorthwind; Integrated Security=true; Persist Security Info=False; TrustServerCertificate=True;");
+           
         }
 
         //Step 2: Sırasıyla hangi entity'in database üzerinde hangi table'a karşılık geleceğini DbSet Property ile belirtmek

@@ -9,11 +9,11 @@ namespace Application.Interfaces
 {
     public interface IShipperService
     {
-        List<Category> GetAllRecord();
-        Category GetRecordById(Guid id);
+        List<Shipper> GetAllRecord();
+        Shipper GetRecordById(Guid id);
 
-        void AddRecord(Category entity);
-        void UpdateRecord(Category entity);
+        void AddRecord(Shipper entity);
+        void UpdateRecord(Shipper entity);
         void DeleteRecord(Guid id);
     }
 }

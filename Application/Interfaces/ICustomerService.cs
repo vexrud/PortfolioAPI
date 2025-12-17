@@ -9,11 +9,11 @@ namespace Application.Interfaces
 {
     public interface ICustomerService
     {
-        List<Category> GetAllRecord();
-        Category GetRecordById(Guid id);
+        List<Customer> GetAllRecord();
+        Customer GetRecordById(Guid id);
 
-        void AddRecord(Category entity);
-        void UpdateRecord(Category entity);
+        void AddRecord(Customer entity);
+        void UpdateRecord(Customer entity);
         void DeleteRecord(Guid id);
     }
 }

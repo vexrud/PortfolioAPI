@@ -11,17 +11,17 @@ namespace Application.Services
 {
     public class CategoryService : ICategoryService
     {
-        private readonly ICategoryDal _categoryRepository;
+        private readonly ICategoryDal _categoryDal;
 
-        public CategoryService(ICategoryDal categoryRepository)
+        public CategoryService(ICategoryDal categoryDal)
         {
-            _categoryRepository = categoryRepository;
+            _categoryDal = categoryDal;
         }
 
 
         public void AddRecord(Category entity)
         {
-            _categoryRepository.Add(entity);
+            _categoryDal.Add(entity);
         }
 
         public void DeleteRecord(Guid id)
@@ -35,24 +35,36 @@ namespace Application.Services
 
             record.IsDeleted = true;
             record.UpdatedDate = DateTime.Now;
-            _categoryRepository.Update(record);
-            // _categoryRepository.Delete(record);  //Hard Delete            
+            _categoryDal.Update(record);           
         }
 
         public List<Category> GetAllRecord()
         {
-            return _categoryRepository.GetAll();
+            return _categoryDal.GetAll();
         }
 
         public Category GetRecordById(Guid id)
         {
-            return _categoryRepository.Get(c => c.Id == id);
+            return _categoryDal.Get(c => c.Id == id);
         }
 
         public void UpdateRecord(Category entity)
         {
             entity.UpdatedDate = DateTime.Now;
-            _categoryRepository.Update(entity);
+            _categoryDal.Update(entity);
         }
+
+        /** TODO: Bu kısım Authorization oluşturulduktan sonra sadece sistem adminlerinin erişebileceği şekilde yapılacak.*/
+        //public void HardDelete(Guid id)
+        //{
+        //    var record = _categoryDal.Get(c => c.Id == id);
+
+        //    if (record == null)
+        //    {
+        //        throw new Exception("Kayıt bulunamadı.");
+        //    }
+
+        //    _categoryDal.Delete(record);
+        //}
     }
 }

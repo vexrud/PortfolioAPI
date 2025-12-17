@@ -11,16 +11,16 @@ namespace Application.Services
 {
     public class CityService : ICityService
     {
-        private readonly ICityDal _cityRepository;
+        private readonly ICityDal _cityDal;
 
-        public CityService(ICityDal cityRepository)
+        public CityService(ICityDal cityDal)
         {
-            _cityRepository = cityRepository;
+            _cityDal = cityDal;
         }
 
         public void AddRecord(City entity)
         {
-            _cityRepository.Add(entity);   
+            _cityDal.Add(entity);   
         }
 
         public void DeleteRecord(Guid id)
@@ -34,24 +34,37 @@ namespace Application.Services
 
             record.IsDeleted = true;
             record.UpdatedDate = DateTime.Now;
-            
-            _cityRepository.Update(record);
+
+            _cityDal.Update(record);
         }
 
         public List<City> GetAllRecord()
         {
-            return _cityRepository.GetAll();
+            return _cityDal.GetAll();
         }
 
         public City GetRecordById(Guid id)
         {
-            return _cityRepository.Get(c => c.Id == id);
+            return _cityDal.Get(c => c.Id == id);
         }
 
         public void UpdateRecord(City entity)
         {
             entity.UpdatedDate = DateTime.Now;
-            _cityRepository.Update(entity);
+            _cityDal.Update(entity);
         }
+
+        /** TODO: Bu kısım Authorization oluşturulduktan sonra sadece sistem adminlerinin erişebileceği şekilde yapılacak.*/
+        //public void HardDelete(Guid id)
+        //{
+        //    var record = _categoryDal.Get(c => c.Id == id);
+
+        //    if (record == null)
+        //    {
+        //        throw new Exception("Kayıt bulunamadı.");
+        //    }
+
+        //    _categoryDal.Delete(record);
+        //}
     }
 }

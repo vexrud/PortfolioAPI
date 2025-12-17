@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Core.Entities;
+using Infrastructure.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,29 +11,47 @@ namespace Application.Services
 {
     public class OrderService : IOrderService
     {
-        public void AddRecord(Category entity)
+        private readonly IOrderDal _orderDal;
+
+        public OrderService(IOrderDal orderDal)
         {
-            throw new NotImplementedException();
+            _orderDal = orderDal;
+        }
+
+        public void AddRecord(Order entity)
+        {
+            _orderDal.Add(entity);
         }
 
         public void DeleteRecord(Guid id)
         {
-            throw new NotImplementedException();
+            var record = GetRecordById(id);
+
+            if(record == null)
+            {
+                throw new Exception("Kayıt bulunamadı.");
+            }
+
+            record.IsDeleted = true;
+            record.UpdatedDate = DateTime.Now;
+
+            _orderDal.Update(record);
         }
 
-        public List<Category> GetAllRecord()
+        public List<Order> GetAllRecord()
         {
-            throw new NotImplementedException();
+            return _orderDal.GetAll();
         }
 
-        public Category GetRecordById(Guid id)
+        public Order GetRecordById(Guid id)
         {
-            throw new NotImplementedException();
+            return _orderDal.Get(o => o.Id == id);
         }
 
-        public void UpdateRecord(Category entity)
+        public void UpdateRecord(Order entity)
         {
-            throw new NotImplementedException();
+            entity.UpdatedDate = DateTime.Now;
+            _orderDal.Update(entity);
         }
     }
 }

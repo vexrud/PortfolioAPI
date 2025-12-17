@@ -9,11 +9,11 @@ namespace Application.Interfaces
 {
     public interface IEmployeeService
     {
-        List<Category> GetAllRecord();
-        Category GetRecordById(Guid id);
+        List<Employee> GetAllRecord();
+        Employee GetRecordById(Guid id);
 
-        void AddRecord(Category entity);
-        void UpdateRecord(Category entity);
+        void AddRecord(Employee entity);
+        void UpdateRecord(Employee entity);
         void DeleteRecord(Guid id);
     }
 }

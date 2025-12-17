@@ -9,11 +9,11 @@ namespace Application.Interfaces
 {
     public interface ICountryService
     {
-        List<Category> GetAllRecord();
-        Category GetRecordById(Guid id);
+        List<Country> GetAllRecord();
+        Country GetRecordById(Guid id);
 
-        void AddRecord(Category entity);
-        void UpdateRecord(Category entity);
+        void AddRecord(Country entity);
+        void UpdateRecord(Country entity);
         void DeleteRecord(Guid id);
     }
 }

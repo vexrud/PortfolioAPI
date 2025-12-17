@@ -9,11 +9,11 @@ namespace Application.Interfaces
 {
     public interface IDistrictService
     {
-        List<Category> GetAllRecord();
-        Category GetRecordById(Guid id);
+        List<District> GetAllRecord();
+        District GetRecordById(Guid id);
 
-        void AddRecord(Category entity);
-        void UpdateRecord(Category entity);
+        void AddRecord(District entity);
+        void UpdateRecord(District entity);
         void DeleteRecord(Guid id);
     }
 }
